@@ -65,3 +65,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+group :production do # 本番環境でPostgreSQLを使用
+  gem 'pg'
+end
