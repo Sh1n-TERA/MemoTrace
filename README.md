@@ -25,7 +25,6 @@
 | mode               | string     | null: false, unique: true      | ※ normal, error
 | title              | string     | null: false                    | ※ 通常モードで必死
 | content            | text       | null: false                    | ※ 通常モードで必死
-| error_title        | text       | null: false                    | ※ エラーモードで必死
 | error_content      | text       | null: false                    | ※ エラーモードで必死
 | cause              | text       | null: false                    | ※ エラーモードで必死
 | solution           | text       | null: false                    | ※ エラーモードで必死
