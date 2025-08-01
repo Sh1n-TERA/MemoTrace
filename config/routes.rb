@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'pages#home'
+  root 'memos#index'
   resources :memos
 end
