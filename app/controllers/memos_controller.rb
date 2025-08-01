@@ -3,6 +3,8 @@ class MemosController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
 
   def index
+    # 修正: 全てのメモではなく、最新の3件のみを取得
+    @memos = Memo.all.order(created_at: :desc).limit(3)
   end
 
   def new
