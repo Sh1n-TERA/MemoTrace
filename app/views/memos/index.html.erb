@@ -1,2 +1,119 @@
-<h1>Memos#index</h1>
-<p>Find me in app/views/memos/index.html.erb</p>
+<div class="header">
+  <div class="header-left">
+    <i class="fas fa-bars"></i>
+  </div>
+  <div class="header-center">
+    <h1>MemoTrace</h1>
+  </div>
+  <div class="header-right">
+    <i class="fas fa-search"></i>
+  </div>
+</div>
+
+<div class="main-container">
+  <div class="calendar-card">
+    <p class="date-year-month"><%= Date.today.year %>年 <%= Date.today.month %></p>
+    <p class="date-day"><%= Date.today.day %></p>
+    <p class="date-weekday"><%= l(Date.today, format: '%A') %></p>
+  </div>
+
+  <h2 class="recent-memories-title">RECENT MEMORIES</h2>
+
+  <div class="memories-list">
+    <% if @memos.any? %>
+      <% @memos.each do |memo| %>
+        <div class="memo-card">
+          <div class="memo-date">
+            <%= l(memo.created_at, format: '%Y/%m/%d') %>
+          </div>
+          <div class="memo-content">
+            <% if memo.mode == 'normal' %>
+              <h3><%= memo.title %></h3>
+              <p><%= memo.content.truncate(50) %></p>
+            <% elsif memo.mode == 'error' %>
+              <h3><%= memo.title %></h3>
+              <p><%= memo.error_content.truncate(50) %></p>
+            <% end %>
+            <div class="memo-tags">
+              <% memo.tag.split(',').each do |tag| %>
+                <span>#<%= tag.strip %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>まだメモがありません。</p>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  body {
+    font-family: sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .main-container {
+    padding: 20px;
+  }
+  .calendar-card, .memo-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .calendar-card {
+    text-align: center;
+  }
+  .calendar-card .date-year-month {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  .calendar-card .date-day {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  .calendar-card .date-weekday {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0;
+  }
+  .recent-memories-title {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  .memo-card h3 {
+    margin-top: 0;
+  }
+  .memo-card .memo-date {
+    font-size: 0.8rem;
+    color: #999;
+    text-align: right;
+  }
+  .memo-tags span {
+    background-color: #e0e7ff;
+    color: #3b5998;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    margin-right: 5px;
+  }
+</style>
