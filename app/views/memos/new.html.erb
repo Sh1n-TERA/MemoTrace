@@ -1,2 +1,59 @@
-<h1>Memos#new</h1>
-<p>Find me in app/views/memos/new.html.erb</p>
+<h1>新規メモ作成</h1>
+<%= form_with(model: @memo, local: true) do |form| %>
+
+  <% if @memo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@memo.errors.count, "error") %> prevented this memo from being saved:</h2>
+      <ul>
+        <% @memo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :mode, 'モード' %>
+    <%= form.select :mode, [['通常メモ', 'normal'], ['エラー記録', 'error']], { prompt: '選択してください' } %>
+  </div>
+
+  <div>
+    <%= form.label :title, 'タイトル' %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :content, '内容' %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div>
+    <%= form.label :error_content, 'エラー内容' %>
+    <%= form.text_area :error_content %>
+  </div>
+
+  <div>
+    <%= form.label :cause, '原因' %>
+    <%= form.text_area :cause %>
+  </div>
+
+  <div>
+    <%= form.label :solution, '解決策' %>
+    <%= form.text_area :solution %>
+  </div>
+
+  <div>
+    <%= form.label :tag, 'タグ' %>
+    <%= form.text_field :tag %>
+  </div>
+
+  <div>
+    <%= form.label :image, '画像' %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
+    <%= form.submit '保存' %>
+  </div>
+
+<% end %>
