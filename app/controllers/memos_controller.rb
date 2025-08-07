@@ -1,7 +1,7 @@
 class MemosController < ApplicationController
   # ログインユーザーのみがメモ作成できる
-  before_action :authenticate_user!, only: [:new, :create]
-
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  
   def index
     # 修正: 全てのメモではなく、最新の3件のみを取得
     @memos = Memo.all.order(created_at: :desc).limit(3)
@@ -21,13 +21,21 @@ class MemosController < ApplicationController
   end
 
   def show
-    @memo = Memo.find(params[:id])
+    @memo = Memo.find(params[:id]) 
   end
 
   def edit
+    @memo = Memo.find(params[:id]) # 編集するメモを取得
+
   end
 
   def update
+    @memo = Memo.find(params[:id]) # 更新するメモを取得
+    if @memo.update(memo_params) # メモを更新
+      redirect_to memo_path(@memo), notice: 'メモが正常に更新されました。'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
