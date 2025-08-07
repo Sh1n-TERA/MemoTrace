@@ -1,7 +1,7 @@
 class MemosController < ApplicationController
   # ログインユーザーのみがメモ作成できる
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     # 修正: 全てのメモではなく、最新の3件のみを取得
     @memos = Memo.all.order(created_at: :desc).limit(3)
@@ -39,6 +39,9 @@ class MemosController < ApplicationController
   end
 
   def destroy
+    @memo = Memo.find(params[:id]) # 削除するメモを取得
+    @memo.destroy # メモを削除
+    redirect_to root_path, notice: 'メモが正常に削除されました。' # 削除後にトップページへリダイレクト
   end
 
   private
