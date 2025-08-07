@@ -1,2 +1,23 @@
-<h1>Memos#show</h1>
-<p>Find me in app/views/memos/show.html.erb</p>
+<h1>メモ詳細</h1>
+
+<div style="border: 1px solid #ccc; padding: 20px;">
+  <p><strong>モード:</strong> <%= @memo.mode %></p>
+  <% if @memo.mode == 'normal' %>
+    <h3><%= @memo.title %></h3>
+    <p><strong>内容:</strong> <%= @memo.content %></p>
+  <% elsif @memo.mode == 'error' %>
+    <p><strong>エラー内容:</strong> <%= @memo.error_content %></p>
+    <p><strong>原因:</strong> <%= @memo.cause %></p>
+    <p><strong>解決策:</strong> <%= @memo.solution %></p>
+  <% end %>
+  <p><strong>タグ:</strong> <%= @memo.tag %></p>
+  <p><strong>投稿者:</strong> <%= @memo.user.name %></p>
+  <% if @memo.image.attached? %>
+    <%= image_tag @memo.image, style: 'max-width: 500px;' %>
+  <% end %>
+  <p>
+    <%= link_to '編集', edit_memo_path(@memo) %>
+    <%= link_to '削除', @memo, data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+  </p>
+  <p><%= link_to '一覧に戻る', root_path %></p>
+</div>
