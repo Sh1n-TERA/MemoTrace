@@ -12,6 +12,7 @@
   </head>
 
   <body>
+    <!-- ヘッダーの開始 -->
     <header class="app-header">
       <div class="header-left">
         <%= link_to new_memo_path, class: "header-link" do %>
@@ -27,9 +28,16 @@
         <%= link_to all_memos_path, class: "header-link" do %>
           <i class="fa-solid fa-bars"></i> 一覧
         <% end %>
-        <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "header-button" %>
+        <% if user_signed_in? %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "header-button" %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path, class: "header-button" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "header-button" %>
+        <% end %>
       </div>
     </header>
+    <!-- ヘッダーの終了 -->
+
     <main>
       <%= yield %>
     </main>
