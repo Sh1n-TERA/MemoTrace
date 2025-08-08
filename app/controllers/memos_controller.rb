@@ -44,6 +44,10 @@ class MemosController < ApplicationController
     redirect_to root_path, notice: 'メモが正常に削除されました。' # 削除後にトップページへリダイレクト
   end
 
+  def all_memos
+    @all_memos = Memo.all.order(created_at: :desc)
+  end
+
   private
 
   # ストロングパラメーターの設定
