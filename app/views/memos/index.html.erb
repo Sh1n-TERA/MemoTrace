@@ -1,15 +1,3 @@
-<div class="header">
-  <div class="header-left">
-    <i class="fas fa-bars"></i>
-  </div>
-  <div class="header-center">
-    <h1>MemoTrace</h1>
-  </div>
-  <div class="header-right">
-    <i class="fas fa-search"></i>
-  </div>
-</div>
-
 <div class="main-container">
   <div class="calendar-card">
     <p class="date-year-month"><%= Date.today.year %>年 <%= Date.today.month %></p>
@@ -44,6 +32,7 @@
       <% end %>
     <% else %>
       <p>まだメモがありません。</p>
+      <%= link_to '最初のメモを作成しましょう！', new_memo_path %>
     <% end %>
   </div>
 </div>
