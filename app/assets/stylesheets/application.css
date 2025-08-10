@@ -199,3 +199,78 @@ body {
   text-align: center;
   margin-top: 20px;
 }
+
+
+.memo-form-container {
+  padding: 20px;
+}
+.mode-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: white; /* タブの背景色を追加 */
+  border-radius: 20px; /* 角を丸くする */
+  padding: 5px; /* 内側の余白 */
+}
+.tab-button {
+  padding: 10px 20px;
+  border: none; /* ボーダーを削除 */
+  background-color: transparent; /* 透明な背景 */
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 20px; /* タブの角を丸くする */
+}
+.tab-button.active {
+  background-color: #3b5998; /* アクティブ時の背景色 */
+  color: white; /* アクティブ時の文字色 */
+}
+.form-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.image-upload-area {
+  border: 2px dashed #ccc;
+  padding: 30px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+.image-upload-area .image-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+
+.form-card .field {
+  margin-bottom: 20px;
+}
+
+.form-card .field label {
+  display: block; /* labelを独立した行に配置 */
+  margin-bottom: 8px; /* labelと入力欄の間に余白を追加 */
+  font-weight: bold;
+}
+
+.form-card .field input[type="text"],
+.form-card .field input[type="email"],
+.form-card .field input[type="password"],
+.form-card .field textarea {
+  width: 100%; /* 親要素の幅いっぱいに広げる */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box; /* paddingとborderを幅に含める */
+}
+
+.form-card .field textarea {
+  min-height: 120px; /* テキストエリアの最小高さを設定 */
+  resize: vertical; /* 垂直方向のみリサイズ可能にする */
+}
