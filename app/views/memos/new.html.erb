@@ -52,3 +52,35 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener('turbo:load', () => {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const normalFields = document.getElementById('normal-mode-fields');
+    const errorFields = document.getElementById('error-mode-fields');
+    const memoModeInput = document.getElementById('memo-mode');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        // すべてのタブボタンから'active'クラスを削除
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+
+        // クリックされたボタンに'active'クラスを追加
+        event.target.classList.add('active');
+
+        // 選択されたモードを取得
+        const selectedMode = event.target.dataset.mode;
+        memoModeInput.value = selectedMode;
+
+        // モードに応じてフォームの表示を切り替え
+        if (selectedMode === 'normal') {
+          normalFields.style.display = 'block';
+          errorFields.style.display = 'none';
+        } else if (selectedMode === 'error') {
+          normalFields.style.display = 'none';
+          errorFields.style.display = 'block';
+        }
+      });
+    });
+  });
+</script>
