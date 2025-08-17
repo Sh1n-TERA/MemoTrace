@@ -53,6 +53,14 @@
     <%= form.file_field :image %>
   </div>
 
+<%# 画像が添付されている場合に、画像と削除ボタンを表示 %>
+<% if @memo.image.attached? %>
+  <div>
+    <%= image_tag @memo.image, style: 'max-width: 200px;' %>
+    <%= link_to '画像を削除', delete_image_path(@memo.image.signed_id), data: { turbo_method: :delete, turbo_confirm: '画像を削除しますか？' } %>
+  </div>
+<% end %>
+
   <div>
     <%= form.submit '更新' %>
   </div>

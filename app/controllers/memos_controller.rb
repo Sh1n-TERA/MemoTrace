@@ -48,6 +48,13 @@ class MemosController < ApplicationController
     @all_memos = Memo.all.order(created_at: :desc)
   end
 
+  def delete_image
+    @image = ActiveStorage::Blob.find_signed(params[:id])
+    @image.purge
+    redirect_back(fallback_location: root_path, notice: '画像を削除しました。')
+  end
+
+
   private
 
   # ストロングパラメーターの設定

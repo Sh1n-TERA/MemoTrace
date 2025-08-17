@@ -14,6 +14,8 @@
   <p><strong>投稿者:</strong> <%= @memo.user.name %></p>
   <% if @memo.image.attached? %>
     <%= image_tag @memo.image, style: 'max-width: 500px;' %>
+    <%# 画像削除ボタンを追加 %>
+    <%= link_to '画像を削除', delete_image_path(@memo.image.signed_id), data: { turbo_method: :delete, turbo_confirm: '画像を削除しますか？' } %>
   <% end %>
   <p>
     <%= link_to '編集', edit_memo_path(@memo) %>
