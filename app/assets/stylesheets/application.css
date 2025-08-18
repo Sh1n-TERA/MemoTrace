@@ -356,3 +356,105 @@ body {
 .memo-item-card {
     transition: all 0.3s ease-in-out;
 }
+
+
+.memo-detail-card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+.memo-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.memo-content-section h3 {
+  margin-top: 0;
+}
+
+.error-item {
+  margin-bottom: 15px;
+}
+
+.memo-tag-section, .memo-image-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.tag-badge {
+  background-color: #eee;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-right: 5px;
+}
+
+.memo-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.memo-actions .button-edit,
+.memo-actions .button-delete,
+.memo-actions .button-back {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin: 0 5px;
+}
+
+.button-edit {
+  background-color: #3b5998;
+}
+
+.button-delete {
+  background-color: #f44336;
+}
+
+.button-back {
+  background-color: #9e9e9e;
+}
+
+.memo-image-section {
+  text-align: center;
+}
+
+.image-actions {
+  margin-top: 10px;
+}
+
+.image-actions .button-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* アイコンとテキストの間隔 */
+  padding: 8px 16px;
+}
+
+.image-actions .button-delete {
+  /* 既存のスタイル */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* アイコンとテキストの間隔 */
+  padding: 8px 16px;
+
+  /* 新規/修正スタイル */
+  text-decoration: none; /* アンダーバーを削除 */
+  color: #757575; /* 文字色をグレーに変更 */
+  background-color: #f0f0f0; /* 背景色を薄いグレーに変更 */
+  border: 1px solid #ddd;
+}
+
+.image-actions .button-delete:hover {
+  background-color: #e0e0e0;
+}

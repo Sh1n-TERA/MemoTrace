@@ -1,25 +1,64 @@
 <h1>メモ詳細</h1>
 
-<div style="border: 1px solid #ccc; padding: 20px;">
-  <p><strong>モード:</strong> <%= @memo.mode %></p>
+<div class="memo-detail-card">
+  <div class="memo-info">
+    <div class="memo-info-item">
+      <strong>モード:</strong>
+      <% if @memo.mode == 'normal' %>
+        <span class="mode-badge normal-mode">通常メモ</span>
+      <% elsif @memo.mode == 'error' %>
+        <span class="mode-badge error-mode">エラー記録</span>
+      <% end %>
+    </div>
+
+    <div class="memo-info-item">
+      <strong>投稿者:</strong> <%= @memo.user.name %>
+    </div>
+  </div>
+
   <% if @memo.mode == 'normal' %>
-    <h3><%= @memo.title %></h3>
-    <p><strong>内容:</strong> <%= @memo.content %></p>
+    <div class="memo-content-section">
+      <h3><%= @memo.title %></h3>
+      <p><%= @memo.content %></p>
+    </div>
   <% elsif @memo.mode == 'error' %>
-    <p><strong>エラー内容:</strong> <%= @memo.error_content %></p>
-    <p><strong>原因:</strong> <%= @memo.cause %></p>
-    <p><strong>解決策:</strong> <%= @memo.solution %></p>
+    <div class="memo-content-section">
+      <div class="error-item">
+        <strong>エラー内容:</strong>
+        <p><%= @memo.error_content %></p>
+      </div>
+      <div class="error-item">
+        <strong>原因:</strong>
+        <p><%= @memo.cause %></p>
+      </div>
+      <div class="error-item">
+        <strong>解決策:</strong>
+        <p><%= @memo.solution %></p>
+      </div>
+    </div>
   <% end %>
-  <p><strong>タグ:</strong> <%= @memo.tag %></p>
-  <p><strong>投稿者:</strong> <%= @memo.user.name %></p>
+
+  <div class="memo-tag-section">
+    <strong>タグ:</strong>
+    <% @memo.tag.split(',').each do |tag| %>
+      <span class="tag-badge"><%= tag.strip %></span>
+    <% end %>
+  </div>
+
   <% if @memo.image.attached? %>
-    <%= image_tag @memo.image, style: 'max-width: 500px;' %>
-    <%# 画像削除ボタンを追加 %>
-    <%= link_to '画像を削除', delete_image_path(@memo.image.signed_id), data: { turbo_method: :delete, turbo_confirm: '画像を削除しますか？' } %>
+    <div class="memo-image-section">
+      <%= image_tag @memo.image, style: 'max-width: 100%;' %>
+      <div class="image-actions">
+        <%= link_to delete_image_path(@memo.image.signed_id), data: { turbo_method: :delete, turbo_confirm: '画像を削除しますか？' }, class: "button-delete" do %>
+          <i class="fa-solid fa-trash-can"></i> 画像を削除
+        <% end %>
+      </div>
+    </div>
   <% end %>
-  <p>
-    <%= link_to '編集', edit_memo_path(@memo) %>
-    <%= link_to '削除', @memo, data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
-  </p>
-  <p><%= link_to '一覧に戻る', root_path %></p>
+
+  <div class="memo-actions">
+    <%= link_to '編集', edit_memo_path(@memo), class: "button-edit" %>
+    <%= link_to '削除', @memo, data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "button-delete" %>
+    <%= link_to '一覧に戻る', root_path, class: "button-back" %>
+  </div>
 </div>
