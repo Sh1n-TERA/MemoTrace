@@ -1,46 +1,61 @@
 <div class="memo-form-container">
   <%= form_with(model: @memo, local: true, id: "new_memo_form") do |form| %>
     <div class="mode-tabs">
-      <button type="button" class="tab-button active" data-mode="normal">通常メモ</button>
-      <button type="button" class="tab-button" data-mode="error">エラー記録</button>
+      <button type="button" class="tab-button <%= 'active' if @memo.mode == 'normal' || @memo.mode.nil? %>" data-mode="normal">通常メモ</button>
+      <button type="button" class="tab-button <%= 'active' if @memo.mode == 'error' %>" data-mode="error">エラー記録</button>
     </div>
 
     <div class="form-card">
-      <!-- 修正箇所: title フィールドをここに移動します -->
       <div class="field">
         <%= form.label :title, 'タイトル' %>
         <%= form.text_field :title, placeholder: "タイトルを入力..." %>
+        <% @memo.errors.full_messages_for(:title).each do |message| %>
+          <div class="error-message"><%= message %></div>
+        <% end %>
       </div>
 
-      <div id="normal-mode-fields">
-        <!-- 元々ここに title フィールドがありました -->
+      <div id="normal-mode-fields" style="display: <%= @memo.mode == 'normal' || @memo.mode.nil? ? 'block' : 'none' %>;">
         <div class="field">
           <%= form.label :content, '内容' %>
           <%= form.text_area :content, placeholder: "内容を入力..." %>
+          <% @memo.errors.full_messages_for(:content).each do |message| %>
+            <div class="error-message"><%= message %></div>
+          <% end %>
         </div>
       </div>
 
-      <div id="error-mode-fields" style="display:none;">
-        <!-- 元々ここに title フィールドがありました -->
+      <div id="error-mode-fields" style="display: <%= @memo.mode == 'error' ? 'block' : 'none' %>;">
         <div class="field">
           <%= form.label :error_content, 'エラー内容' %>
           <%= form.text_area :error_content, placeholder: "エラー内容を入力..." %>
+          <% @memo.errors.full_messages_for(:error_content).each do |message| %>
+            <div class="error-message"><%= message %></div>
+          <% end %>
         </div>
 
         <div class="field">
           <%= form.label :cause, '原因' %>
           <%= form.text_area :cause, placeholder: "原因を入力..." %>
+          <% @memo.errors.full_messages_for(:cause).each do |message| %>
+            <div class="error-message"><%= message %></div>
+          <% end %>
         </div>
 
         <div class="field">
           <%= form.label :solution, '解決策' %>
           <%= form.text_area :solution, placeholder: "解決策を入力..." %>
+          <% @memo.errors.full_messages_for(:solution).each do |message| %>
+            <div class="error-message"><%= message %></div>
+          <% end %>
         </div>
       </div>
 
       <div class="field">
         <%= form.label :tag, 'タグ' %>
         <%= form.text_field :tag, placeholder: "タグを入力 (例: #HTML #)" %>
+        <% @memo.errors.full_messages_for(:tag).each do |message| %>
+          <div class="error-message"><%= message %></div>
+        <% end %>
       </div>
 
       <div class="field">
@@ -50,6 +65,9 @@
           <p id="upload-text">画像を添付</p>
           <img id="image-preview" src="#" alt="画像プレビュー" style="max-width: 100%; display: none;">
         </div>
+        <% @memo.errors.full_messages_for(:image).each do |message| %>
+          <div class="error-message"><%= message %></div>
+        <% end %>
       </div>
       
       <%= form.hidden_field :mode, value: 'normal', id: 'memo-mode' %>
@@ -61,9 +79,8 @@
   <% end %>
 </div>
 
-
-<script>
-  document.addEventListener('turbo:load', () => {
+<script type="module">
+  const initializeForm = () => {
     const tabButtons = document.querySelectorAll('.tab-button');
     const normalFields = document.getElementById('normal-mode-fields');
     const errorFields = document.getElementById('error-mode-fields');
@@ -106,5 +123,12 @@
         uploadText.style.display = 'block';
       }
     });
-  });
+  };
+
+  // ページ読み込み時とTurboによるナビゲーション時に実行
+  document.addEventListener('turbo:load', initializeForm);
+  // エラー再描画時などにも確実に実行させるためのフォールバック
+  document.addEventListener('DOMContentLoaded', initializeForm);
+  // 即時実行
+  initializeForm();
 </script>

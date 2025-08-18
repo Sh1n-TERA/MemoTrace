@@ -473,3 +473,9 @@ body {
   background-color: #e8f0fe;
   border-radius: 5px;
 }
+
+.error-message {
+  color: #f44336;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}

@@ -18,8 +18,6 @@ class MemosController < ApplicationController
     if @memo.save
       redirect_to root_path, notice: 'メモが正常に投稿されました。'
     else
-      # エラーメッセージをフラッシュに格納
-      flash.now[:alert] = @memo.errors.full_messages.join(', ')
       render :new, status: :unprocessable_entity
     end
   end
