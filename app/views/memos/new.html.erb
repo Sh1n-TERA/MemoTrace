@@ -20,6 +20,11 @@
 
       <div id="error-mode-fields" style="display:none;">
         <div class="field">
+          <%= form.label :title, 'タイトル' %>
+          <%= form.text_field :title, placeholder: "タイトルを入力..." %>
+        </div>
+
+        <div class="field">
           <%= form.label :error_content, 'エラー内容' %>
           <%= form.text_area :error_content, placeholder: "エラー内容を入力..." %>
         </div>

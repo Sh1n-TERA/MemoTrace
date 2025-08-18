@@ -17,6 +17,7 @@ class Memo < ApplicationRecord
   
   ## mode 'error'のバリデーション
   with_options if: -> { mode == 'error' } do
+    validates :title, presence: true
     validates :error_content, presence: true
     validates :cause        ,presence: true
     validates :solution     ,presence: true

@@ -23,7 +23,7 @@
 | ------------------ | ---------- | -----------------------------  |
 | id                 | bigint     | primary key                    |
 | mode               | string     | null: false, unique: true      | ※ normal, error
-| title              | string     | null: false                    | ※ 通常モードで必死
+| title              | string     | null: false                    | ※ 両モードで必死
 | content            | text       | null: false                    | ※ 通常モードで必死
 | error_content      | text       | null: false                    | ※ エラーモードで必死
 | cause              | text       | null: false                    | ※ エラーモードで必死
