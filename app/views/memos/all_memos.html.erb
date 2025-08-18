@@ -1,31 +1,67 @@
 <h1>すべてのメモ</h1>
 
+<div class="mode-tabs">
+  <button type="button" class="tab-button active" data-mode="all">すべてのメモ</button>
+  <button type="button" class="tab-button" data-mode="normal">通常メモ</button>
+  <button type="button" class="tab-button" data-mode="error">エラー記録</button>
+</div>
+
+<div id="all-memos-container">
   <% if @all_memos.any? %>
     <% @all_memos.each do |memo| %>
-      <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
-        <% if memo.mode == 'normal' %>
-          <p><strong>モード:</strong> <span class="mode-badge normal-mode">通常メモ</span></p>
-        <% elsif memo.mode == 'error' %>
-          <p><strong>モード:</strong> <span class="mode-badge error-mode">エラー記録</span></p>
-        <% end %>
-        <% if memo.mode == 'normal' %>
-          <p><strong>タイトル:</strong> <%= memo.title %></p>
-          <p><strong>内容:</strong> <%= memo.content %></p>
-        <% elsif memo.mode == 'error' %>
-          <p><strong>エラー内容:</strong> <%= memo.error_content %></p>
-          <p><strong>原因:</strong> <%= memo.cause %></p>
-          <p><strong>解決策:</strong> <%= memo.solution %></p>
-        <% end %>
-        <p><strong>タグ:</strong> <%= memo.tag %></p>
-        <p><strong>投稿者:</strong> <%= memo.user.name %></p>
-        <% if memo.image.attached? %>
-          <%= image_tag memo.image, style: 'max-width: 200px;' %>
-        <% end %>
-        <p><%= link_to '詳細', memo_path(memo) %></p>
+      <div class="memo-item-card" data-mode="<%= memo.mode %>">
+        <%# ここに既存のメモ表示コード %>
+        <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+          <% if memo.mode == 'normal' %>
+            <p><strong>モード:</strong> <span class="mode-badge normal-mode">通常メモ</span></p>
+          <% elsif memo.mode == 'error' %>
+            <p><strong>モード:</strong> <span class="mode-badge error-mode">エラー記録</span></p>
+          <% end %>
+          <% if memo.mode == 'normal' %>
+            <p><strong>タイトル:</strong> <%= memo.title %></p>
+            <p><strong>内容:</strong> <%= memo.content %></p>
+          <% elsif memo.mode == 'error' %>
+            <p><strong>エラー内容:</strong> <%= memo.error_content %></p>
+            <p><strong>原因:</strong> <%= memo.cause %></p>
+            <p><strong>解決策:</strong> <%= memo.solution %></p>
+          <% end %>
+          <p><strong>タグ:</strong> <%= memo.tag %></p>
+          <p><strong>投稿者:</strong> <%= memo.user.name %></p>
+          <% if memo.image.attached? %>
+            <%= image_tag memo.image, style: 'max-width: 200px;' %>
+          <% end %>
+          <p><%= link_to '詳細', memo_path(memo) %></p>
+        </div>
+        <%# ここまで %>
       </div>
     <% end %>
   <% else %>
     <p>まだメモがありません。</p>
   <% end %>
+</div>
 
 <%= link_to 'トップページに戻る', root_path %>
+
+<script>
+  document.addEventListener('turbo:load', () => {
+    const tabButtons = document.querySelectorAll('.mode-tabs .tab-button');
+    const allMemos = document.querySelectorAll('.memo-item-card');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const mode = button.dataset.mode;
+
+        allMemos.forEach(memo => {
+          if (mode === 'all' || memo.dataset.mode === mode) {
+            memo.style.display = 'block';
+          } else {
+            memo.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
