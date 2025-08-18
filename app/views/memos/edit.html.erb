@@ -1,70 +1,127 @@
 <h1>メモ編集</h1>
 
-<%= form_with(model: @memo, local: true) do |form| %>
+<div class="memo-form-container">
+  <%= form_with(model: @memo, local: true, id: "edit_memo_form") do |form| %>
+    <div class="mode-tabs">
+      <button type="button" class="tab-button <%= 'active' if @memo.mode == 'normal' %>" data-mode="normal">通常メモ</button>
+      <button type="button" class="tab-button <%= 'active' if @memo.mode == 'error' %>" data-mode="error">エラー記録</button>
+    </div>
 
-  <% if @memo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@memo.errors.count, "error") %> prevented this memo from being saved:</h2>
-      <ul>
-        <% @memo.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+    <div class="form-card">
+      <div id="normal-mode-fields" style="display: <%= @memo.mode == 'normal' ? 'block' : 'none' %>;">
+        <div class="field">
+          <%= form.label :title, 'タイトル' %>
+          <%= form.text_field :title, placeholder: "タイトルを入力..." %>
+        </div>
+
+        <div class="field">
+          <%= form.label :content, '内容' %>
+          <%= form.text_area :content, placeholder: "内容を入力..." %>
+        </div>
+      </div>
+
+      <div id="error-mode-fields" style="display: <%= @memo.mode == 'error' ? 'block' : 'none' %>;">
+        <div class="field">
+          <%= form.label :title, 'タイトル' %>
+          <%= form.text_field :title, placeholder: "タイトルを入力..." %>
+        </div>
+        <div class="field">
+          <%= form.label :error_content, 'エラー内容' %>
+          <%= form.text_area :error_content, placeholder: "エラー内容を入力..." %>
+        </div>
+
+        <div class="field">
+          <%= form.label :cause, '原因' %>
+          <%= form.text_area :cause, placeholder: "原因を入力..." %>
+        </div>
+
+        <div class="field">
+          <%= form.label :solution, '解決策' %>
+          <%= form.text_area :solution, placeholder: "解決策を入力..." %>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= form.label :tag, 'タグ' %>
+        <%= form.text_field :tag, placeholder: "タグを入力 (例: #HTML #)" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :image, '画像添付' %>
+        <div class="image-upload-area">
+          <%= form.file_field :image, class: "image-input" %>
+          <p id="upload-text">画像を添付</p>
+          <img id="image-preview" src="#" alt="画像プレビュー" style="max-width: 100%; display: none;">
+        </div>
+      </div>
+
+      <% if @memo.image.attached? %>
+        <div class="memo-image-section">
+          <%= image_tag @memo.image, style: 'max-width: 100%;' %>
+          <div class="image-actions">
+            <%= link_to delete_image_path(@memo.image.signed_id), data: { turbo_method: :delete, turbo_confirm: '画像を削除しますか？' }, class: "button-delete" do %>
+              <i class="fa-solid fa-trash-can"></i> 画像を削除
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= form.hidden_field :mode, id: 'memo-mode' %>
+
+      <div class="actions">
+        <%= form.submit "更新" %>
+      </div>
     </div>
   <% end %>
+</div>
 
-  <div>
-    <%= form.label :mode, 'モード' %>
-    <%= form.select :mode, [['通常メモ', 'normal'], ['エラー記録', 'error']], { prompt: '選択してください' } %>
-  </div>
+<div class="memo-actions">
+  <%= link_to '詳細に戻る', memo_path(@memo), class: "button-back" %>
+</div>
 
-  <div>
-    <%= form.label :title, 'タイトル' %>
-    <%= form.text_field :title %>
-  </div>
+<script>
+  document.addEventListener('turbo:load', () => {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const normalFields = document.getElementById('normal-mode-fields');
+    const errorFields = document.getElementById('error-mode-fields');
+    const memoModeInput = document.getElementById('memo-mode');
+    const imageInput = document.querySelector('.image-input');
+    const imagePreview = document.getElementById('image-preview');
+    const uploadText = document.getElementById('upload-text');
 
-  <div>
-    <%= form.label :content, '内容' %>
-    <%= form.text_area :content %>
-  </div>
+    tabButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
 
-  <div>
-    <%= form.label :error_content, 'エラー内容' %>
-    <%= form.text_area :error_content %>
-  </div>
+        const selectedMode = event.target.dataset.mode;
+        memoModeInput.value = selectedMode;
 
-  <div>
-    <%= form.label :cause, '原因' %>
-    <%= form.text_area :cause %>
-  </div>
+        if (selectedMode === 'normal') {
+          normalFields.style.display = 'block';
+          errorFields.style.display = 'none';
+        } else if (selectedMode === 'error') {
+          normalFields.style.display = 'none';
+          errorFields.style.display = 'block';
+        }
+      });
+    });
 
-  <div>
-    <%= form.label :solution, '解決策' %>
-    <%= form.text_area :solution %>
-  </div>
-
-  <div>
-    <%= form.label :tag, 'タグ' %>
-    <%= form.text_field :tag %>
-  </div>
-
-  <div>
-    <%= form.label :image, '画像' %>
-    <%= form.file_field :image %>
-  </div>
-
-<%# 画像が添付されている場合に、画像と削除ボタンを表示 %>
-<% if @memo.image.attached? %>
-  <div>
-    <%= image_tag @memo.image, style: 'max-width: 200px;' %>
-    <%= link_to '画像を削除', delete_image_path(@memo.image.signed_id), data: { turbo_method: :delete, turbo_confirm: '画像を削除しますか？' } %>
-  </div>
-<% end %>
-
-  <div>
-    <%= form.submit '更新' %>
-  </div>
-
-<% end %>
-
-<%= link_to '詳細に戻る', memo_path(@memo) %>
+    imageInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = 'block';
+          uploadText.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        imagePreview.src = '';
+        imagePreview.style.display = 'none';
+        uploadText.style.display = 'block';
+      }
+    });
+  });
+</script>

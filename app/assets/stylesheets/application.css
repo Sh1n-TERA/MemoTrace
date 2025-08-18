@@ -458,3 +458,9 @@ body {
 .image-actions .button-delete:hover {
   background-color: #e0e0e0;
 }
+
+.memo-actions .button-back {
+  background-color: #9e9e9e;
+  text-decoration: none; /* アンダーバーを削除 */
+  color: white; /* 文字色を白に変更 */
+}
