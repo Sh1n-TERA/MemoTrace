@@ -6,12 +6,14 @@
     </div>
 
     <div class="form-card">
-      <div id="normal-mode-fields">
-        <div class="field">
-          <%= form.label :title, 'タイトル' %>
-          <%= form.text_field :title, placeholder: "タイトルを入力..." %>
-        </div>
+      <!-- 修正箇所: title フィールドをここに移動します -->
+      <div class="field">
+        <%= form.label :title, 'タイトル' %>
+        <%= form.text_field :title, placeholder: "タイトルを入力..." %>
+      </div>
 
+      <div id="normal-mode-fields">
+        <!-- 元々ここに title フィールドがありました -->
         <div class="field">
           <%= form.label :content, '内容' %>
           <%= form.text_area :content, placeholder: "内容を入力..." %>
@@ -19,11 +21,7 @@
       </div>
 
       <div id="error-mode-fields" style="display:none;">
-        <div class="field">
-          <%= form.label :title, 'タイトル' %>
-          <%= form.text_field :title, placeholder: "タイトルを入力..." %>
-        </div>
-
+        <!-- 元々ここに title フィールドがありました -->
         <div class="field">
           <%= form.label :error_content, 'エラー内容' %>
           <%= form.text_area :error_content, placeholder: "エラー内容を入力..." %>
@@ -62,6 +60,7 @@
     </div>
   <% end %>
 </div>
+
 
 <script>
   document.addEventListener('turbo:load', () => {

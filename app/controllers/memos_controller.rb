@@ -12,12 +12,16 @@ class MemosController < ApplicationController
   end
 
   def create
-    @memo = current_user.memos.build(memo_params) # 現ユーザーに紐付けてメモ作成
+    @memo = current_user.memos.build(memo_params)
+
+    # 保存に成功したかどうかをチェック
     if @memo.save
-      redirect_to root_path, notice: 'メモが正常に作成されました。' # 成功したらトップページへリダイレクト
+      redirect_to root_path, notice: 'メモが正常に投稿されました。'
     else
-      render :new, status: :unprocessable_entity # 失敗したら新規作成フォーム再表示
-    end 
+      # エラーメッセージをフラッシュに格納
+      flash.now[:alert] = @memo.errors.full_messages.join(', ')
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -57,9 +61,14 @@ class MemosController < ApplicationController
 
   private
 
-  # ストロングパラメーターの設定
-  # フォームからの送信データを安全に受け取るために必要
   def memo_params
-    params.require(:memo).permit(:mode, :title, :content, :error_content, :cause, :solution, :tag, :image)
+    case params[:memo][:mode]
+    when 'normal'
+      params.require(:memo).permit(:mode, :title, :content, :tag, :image)
+    when 'error'
+      params.require(:memo).permit(:mode, :title, :error_content, :cause, :solution, :tag, :image)
+    else
+      params.require(:memo).permit(:mode, :title, :content, :tag, :image)
+    end
   end
 end
