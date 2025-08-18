@@ -294,3 +294,13 @@ body {
 .form-card .actions input[type="submit"]:hover {
   opacity: 0.8;
 }
+
+
+.memories-list .memo-card-link {
+  text-decoration: none; /* 下線を削除 */
+  color: inherit; /* 親要素（memo-card）の色を継承 */
+}
+
+.memories-list .memo-card-link:hover {
+  opacity: 0.8; /* ホバー時に少し透明度を下げて視覚的なフィードバックを与える */
+}
