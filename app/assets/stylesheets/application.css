@@ -464,3 +464,12 @@ body {
   text-decoration: none; /* アンダーバーを削除 */
   color: white; /* 文字色を白に変更 */
 }
+
+.user-info {
+  color: #3b5998;
+  font-weight: bold;
+  margin-right: 15px;
+  padding: 8px 12px;
+  background-color: #e8f0fe;
+  border-radius: 5px;
+}
