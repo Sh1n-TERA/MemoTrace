@@ -1,27 +1,31 @@
 <h1>すべてのメモ</h1>
 
-<% if @all_memos.any? %>
-  <% @all_memos.each do |memo| %>
-    <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
-      <p><strong>モード:</strong> <%= memo.mode %></p>
-      <% if memo.mode == 'normal' %>
-        <p><strong>タイトル:</strong> <%= memo.title %></p>
-        <p><strong>内容:</strong> <%= memo.content %></p>
-      <% elsif memo.mode == 'error' %>
-        <p><strong>エラー内容:</strong> <%= memo.error_content %></p>
-        <p><strong>原因:</strong> <%= memo.cause %></p>
-        <p><strong>解決策:</strong> <%= memo.solution %></p>
-      <% end %>
-      <p><strong>タグ:</strong> <%= memo.tag %></p>
-      <p><strong>投稿者:</strong> <%= memo.user.name %></p>
-      <% if memo.image.attached? %>
-        <%= image_tag memo.image, style: 'max-width: 200px;' %>
-      <% end %>
-      <p><%= link_to '詳細', memo_path(memo) %></p>
-    </div>
+  <% if @all_memos.any? %>
+    <% @all_memos.each do |memo| %>
+      <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+        <% if memo.mode == 'normal' %>
+          <p><strong>モード:</strong> <span class="mode-badge normal-mode">通常メモ</span></p>
+        <% elsif memo.mode == 'error' %>
+          <p><strong>モード:</strong> <span class="mode-badge error-mode">エラー記録</span></p>
+        <% end %>
+        <% if memo.mode == 'normal' %>
+          <p><strong>タイトル:</strong> <%= memo.title %></p>
+          <p><strong>内容:</strong> <%= memo.content %></p>
+        <% elsif memo.mode == 'error' %>
+          <p><strong>エラー内容:</strong> <%= memo.error_content %></p>
+          <p><strong>原因:</strong> <%= memo.cause %></p>
+          <p><strong>解決策:</strong> <%= memo.solution %></p>
+        <% end %>
+        <p><strong>タグ:</strong> <%= memo.tag %></p>
+        <p><strong>投稿者:</strong> <%= memo.user.name %></p>
+        <% if memo.image.attached? %>
+          <%= image_tag memo.image, style: 'max-width: 200px;' %>
+        <% end %>
+        <p><%= link_to '詳細', memo_path(memo) %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <p>まだメモがありません。</p>
   <% end %>
-<% else %>
-  <p>まだメモがありません。</p>
-<% end %>
 
 <%= link_to 'トップページに戻る', root_path %>

@@ -304,3 +304,27 @@ body {
 .memories-list .memo-card-link:hover {
   opacity: 0.8; /* ホバー時に少し透明度を下げて視覚的なフィードバックを与える */
 }
+
+
+.memo-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mode-badge {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: white;
+  white-space: nowrap;
+}
+
+.normal-mode {
+  background-color: #4CAF50; /* 緑色 */
+}
+
+.error-mode {
+  background-color: #F44336; /* 赤色 */
+}

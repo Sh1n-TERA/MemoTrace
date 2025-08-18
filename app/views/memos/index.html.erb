@@ -14,6 +14,11 @@
           <div class="memo-card">
             <div class="memo-date">
               <%= l(memo.created_at, format: '%Y/%m/%d') %>
+              <% if memo.mode == 'normal' %>
+                <span class="mode-badge normal-mode">通常メモ</span>
+              <% elsif memo.mode == 'error' %>
+                <span class="mode-badge error-mode">エラー記録</span>
+              <% end %>
             </div>
             <div class="memo-content">
               <% if memo.mode == 'normal' %>
@@ -30,7 +35,7 @@
               </div>
             </div>
           </div>
-        <% end %> 
+        <% end %>
       <% end %>
     <% else %>
       <p>まだメモがありません。</p>
