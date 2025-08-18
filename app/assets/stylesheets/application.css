@@ -274,3 +274,23 @@ body {
   min-height: 120px; /* テキストエリアの最小高さを設定 */
   resize: vertical; /* 垂直方向のみリサイズ可能にする */
 }
+
+
+.form-card .actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.form-card .actions input[type="submit"] {
+  background-color: #3b5998;
+  color: white;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.form-card .actions input[type="submit"]:hover {
+  opacity: 0.8;
+}
