@@ -47,7 +47,15 @@ class MemosController < ApplicationController
   end
 
   def all_memos
-    @all_memos = Memo.all.order(created_at: :desc)
+    # タグ検索のパラメータが存在するかチェック
+    if params[:tag].present?
+      # タグの配列を作成し、各タグで検索
+      # LIKE句を使って、タグが部分的に一致するメモを検索します
+      @all_memos = Memo.where('tag LIKE ?', "%#{params[:tag]}%").order(created_at: :desc)
+    else
+      # タグが指定されていない場合は、すべてのメモを取得
+      @all_memos = Memo.all.order(created_at: :desc)
+    end
   end
 
   def delete_image

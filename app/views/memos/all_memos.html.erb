@@ -1,5 +1,10 @@
 <h1>すべてのメモ</h1>
 
+<%= form_with url: all_memos_path, method: :get, local: true, class: "tag-search-form" do %>
+  <%= text_field_tag :tag, params[:tag], placeholder: "タグで検索 (例: #Rails #Ruby)" %>
+  <%= submit_tag "検索", class: "button-search" %>
+<% end %>
+
 <div class="mode-tabs">
   <button type="button" class="tab-button active" data-mode="all">すべてのメモ</button>
   <button type="button" class="tab-button" data-mode="normal">通常メモ</button>
@@ -11,11 +16,15 @@
     <% @all_memos.each do |memo| %>
       <div class="memo-item-card" data-mode="<%= memo.mode %>">
         <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
-          <% if memo.mode == 'normal' %>
-            <p><strong>モード:</strong> <span class="mode-badge normal-mode">通常メモ</span></p>
-          <% elsif memo.mode == 'error' %>
-            <p><strong>モード:</strong> <span class="mode-badge error-mode">エラー記録</span></p>
-          <% end %>
+          <p>
+            <strong>モード:</strong>
+            <% if memo.mode == 'normal' %>
+              <span class="mode-badge normal-mode">通常メモ</span>
+            <% elsif memo.mode == 'error' %>
+              <span class="mode-badge error-mode">エラー記録</span>
+            <% end %>
+          </p>
+          
           <% if memo.mode == 'normal' %>
             <p><strong>タイトル:</strong> <%= memo.title %></p>
             <p><strong>内容:</strong> <%= memo.content %></p>
@@ -24,11 +33,20 @@
             <p><strong>原因:</strong> <%= memo.cause %></p>
             <p><strong>解決策:</strong> <%= memo.solution %></p>
           <% end %>
-          <p><strong>タグ:</strong> <%= memo.tag %></p>
+
+          <p>
+            <strong>タグ:</strong>
+            <% memo.tag.split(',').map(&:strip).each do |tag| %>
+              <%= link_to tag, all_memos_path(tag: tag), class: "tag-link" %>
+            <% end %>
+          </p>
+
           <p><strong>投稿者:</strong> <%= memo.user.name %></p>
+          
           <% if memo.image.attached? %>
             <%= image_tag memo.image, style: 'max-width: 200px;' %>
           <% end %>
+
           <div class="memo-actions">
             <%= link_to '詳細', memo_path(memo), class: "button-edit" %>
           </div>
@@ -36,7 +54,7 @@
       </div>
     <% end %>
   <% else %>
-    <p>まだメモがありません。</p>
+    <p>該当するメモがありません。</p>
   <% end %>
 </div>
 
