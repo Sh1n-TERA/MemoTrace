@@ -27,11 +27,11 @@
           
           <% if memo.mode == 'normal' %>
             <p><strong>タイトル:</strong> <%= memo.title %></p>
-            <p><strong>内容:</strong> <%= memo.content %></p>
+            <p><strong>内容:</strong> <%= simple_format(memo.content) %></p>
           <% elsif memo.mode == 'error' %>
-            <p><strong>エラー内容:</strong> <%= memo.error_content %></p>
-            <p><strong>原因:</strong> <%= memo.cause %></p>
-            <p><strong>解決策:</strong> <%= memo.solution %></p>
+            <p><strong>エラー内容:</strong> <%= simple_format(memo.error_content) %></p>
+            <p><strong>原因:</strong> <%= simple_format(memo.cause) %></p>
+            <p><strong>解決策:</strong> <%= simple_format(memo.solution) %></p>
           <% end %>
 
           <p>

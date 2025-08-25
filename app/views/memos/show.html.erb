@@ -1,4 +1,4 @@
-<h1>メモ詳細</h1>
+h1>メモ詳細</h1>
 
 <div class="memo-detail-card">
   <div class="memo-info">
@@ -19,21 +19,21 @@
   <% if @memo.mode == 'normal' %>
     <div class="memo-content-section">
       <h3><%= @memo.title %></h3>
-      <p><%= @memo.content %></p>
+      <p><%= simple_format(@memo.content) %></p>
     </div>
   <% elsif @memo.mode == 'error' %>
     <div class="memo-content-section">
       <div class="error-item">
         <strong>エラー内容:</strong>
-        <p><%= @memo.error_content %></p>
+        <p><%= simple_format(@memo.error_content) %></p>
       </div>
       <div class="error-item">
         <strong>原因:</strong>
-        <p><%= @memo.cause %></p>
+        <p><%= simple_format(@memo.cause) %></p>
       </div>
       <div class="error-item">
         <strong>解決策:</strong>
-        <p><%= @memo.solution %></p>
+        <p><%= simple_format(@memo.solution) %></p>
       </div>
     </div>
   <% end %>
