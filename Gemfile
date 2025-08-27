@@ -71,3 +71,5 @@ group :production do # 本番環境でPostgreSQLを使用
 end
 
 gem 'devise'
+
+gem 'simple_calendar'
