@@ -64,6 +64,9 @@ class MemosController < ApplicationController
     redirect_back(fallback_location: root_path, notice: '画像を削除しました。')
   end
 
+  def calender
+    @memos = Memo.all
+  end
 
   private
 
