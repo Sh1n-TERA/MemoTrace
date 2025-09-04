@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :memos
   get 'all_memos', to: 'memos#all_memos'
   delete '/images/:id', to: 'memos#delete_image', as: 'delete_image'
+  get 'memos/calender', to: 'memo#calender'
 end
