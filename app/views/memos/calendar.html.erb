@@ -1,12 +1,28 @@
-<h1>メモカレンダー</h1>
+<div class="main-container">
+  <div class="calendar-header">
+    <%= link_to memos_calendar_path(date: @memos.first.created_at - 1.month) do %>
+      <i class="fa-solid fa-angle-left"></i>
+    <% end %>
+    <h1><%= l(Date.today, format: '%Y年%m月') %></h1>
+    <%= link_to memos_calendar_path(date: @memos.first.created_at + 1.month) do %>
+      <i class="fa-solid fa-angle-right"></i>
+    <% end %>
+  </div>
 
-<%= month_calendar(events: @memos) do |date, memos| %>
-  <%= date.day %>
-  <% memos.each do |memo| %>
-    <div>
-      <%= link_to memo.title.truncate(10), memo %>
-    </div>
-  <% end %>
-<% end %>
+  <div class="calendar-body">
+    <%= month_calendar(events: @memos) do |date, memos| %>
+      <div class="calendar-day <%= 'has-memo' if memos.any? %>">
+        <div class="day-number"><%= date.day %></div>
+        <% if memos.any? %>
+          <div class="memo-count">
+            <%= link_to memos.count, memos_on_date_path(date: date) %>件
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 
-<%= link_to '戻る', root_path %>
+  <div class="memo-actions">
+    <%= link_to 'トップページに戻る', root_path, class: "button-back" %>
+  </div>
+</div>
