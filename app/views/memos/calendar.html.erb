@@ -1,0 +1,12 @@
+<h1>メモカレンダー</h1>
+
+<%= month_calendar(events: @memos) do |date, memos| %>
+  <%= date.day %>
+  <% memos.each do |memo| %>
+    <div>
+      <%= link_to memo.title.truncate(10), memo %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= link_to '戻る', root_path %>
