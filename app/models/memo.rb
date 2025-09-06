@@ -23,4 +23,7 @@ class Memo < ApplicationRecord
     validates :solution     ,presence: true
   end
 
+  def start_time
+    self.created_at # メモの作成日時を返す
+  end
 end
