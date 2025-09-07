@@ -517,3 +517,116 @@ body {
 .tag-link:hover {
   background-color: #ddd;
 }
+
+.main-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.calendar-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.calendar-title {
+  font-size: 1.5rem;
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.calendar-header-wrapper a {
+  color: #3b5998;
+  font-size: 1.2rem;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.calendar-header-wrapper i {
+  color: #3b5998;
+}
+
+.simple-calendar {
+  width: 100%;
+}
+
+.simple-calendar table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.simple-calendar th,
+.simple-calendar td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.simple-calendar td {
+  min-height: 120px;
+  padding: 8px;
+  text-align: center;
+  vertical-align: top;
+  position: relative;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+}
+
+.simple-calendar .day-number {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.simple-calendar .has-memo {
+  background-color: #e0e7ff;
+}
+
+.simple-calendar .has-memo .day-number {
+  color: #3b5998;
+}
+
+.memo-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.button-back {
+  background-color: #f0f0f0;
+  color: #555;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* simple_calendarのデフォルトヘッダーを非表示にする */
+.simple-calendar .calendar-heading {
+  display: none;
+}
+
+.simple-calendar .calendar-navigation {
+  display: none;
+}
+
+.simple-calendar a[data-action="next"] {
+  display: none;
+}
+
+.simple-calendar a[data-action="previous"] {
+  display: none;
+}
