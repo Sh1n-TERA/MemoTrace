@@ -630,3 +630,12 @@ body {
 .simple-calendar a[data-action="previous"] {
   display: none;
 }
+
+/* 土曜日と日曜日の色分け */
+.wday-6 { /* 土曜日のクラス */
+  background-color: #e0eaff;
+}
+
+.wday-0 { /* 日曜日のクラス */
+  background-color: #ffe0e0;
+}
