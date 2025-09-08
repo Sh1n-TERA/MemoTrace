@@ -11,8 +11,8 @@
     </div>
     
     <div class="simple-calendar">
-      <%= month_calendar(events: @memos, header: false, number_of_days: 35) do |date, memos| %>
-        <div class="calendar-day <%= 'has-memo' if memos.any? %> <%= "wday-#{date.wday}" %>">
+      <%= month_calendar(date: @date, events: @memos, header: false, number_of_days: 35) do |date, memos| %>
+        <div class="calendar-day <%= "wday-#{date.wday}" %> <%= 'has-memo' if memos.any? %>">
           <div class="day-number"><%= date.day %></div>
           <% if memos.any? %>
             <div class="memo-count">
@@ -23,7 +23,8 @@
       <% end %>
     </div>
 
-  <div class="memo-actions">
-    <%= link_to 'トップページに戻る', root_path, class: "button-back" %>
+    <div class="memo-actions">
+      <%= link_to 'トップページに戻る', root_path, class: "button-back" %>
+    </div>
   </div>
 </div>

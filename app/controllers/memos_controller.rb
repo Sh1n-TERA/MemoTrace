@@ -69,6 +69,12 @@ class MemosController < ApplicationController
     @memos = Memo.where(created_at: @date.all_month)
   end
 
+
+  def show_on_date
+    date = Date.parse(params[:date])
+    @memos = Memo.where(created_at: date.all_day)
+  end
+
   private
 
   def memo_params
