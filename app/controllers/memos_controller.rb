@@ -65,7 +65,8 @@ class MemosController < ApplicationController
   end
 
   def calendar
-    @memos = Memo.all
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @memos = Memo.where(created_at: @date.all_month)
   end
 
   private
