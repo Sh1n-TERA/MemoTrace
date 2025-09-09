@@ -1,29 +1,29 @@
-<div class="container mx-auto p-4 md:p-8">
-  <h1 class="text-3xl font-bold text-center mb-6">
-    <%= l(Date.parse(params[:date]), format: '%Y年%m月%d日') %>のメモ
-  </h1>
+<div class="main-container">
+  <div class="memo-container">
+    <h1 class="memo-title text-center text-4xl font-bold mb-6">
+      <%= l(Date.parse(params[:date]), format: '%Y年%m月%d日') %>のメモ
+    </h1>
 
-  <div class="space-y-4">
-    <% if @memos.present? %>
-      <% @memos.each do |memo| %>
-        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-          <div class="mb-2">
-            <h2 class="text-xl font-semibold"><%= memo.title %></h2>
-            <p class="text-sm text-gray-500">
+    <div class="space-y-6">
+      <% if @memos.present? %>
+        <% @memos.each do |memo| %>
+          <div class="memo-card bg-white p-6 rounded-lg shadow-md border border-gray-200">
+            <h2 class="text-xl font-semibold mb-2"><%= memo.title %></h2>
+            <p class="text-sm text-gray-500 mb-4">
               <%= l(memo.created_at, format: '%H:%M') %>
             </p>
+            <p class="text-gray-700 whitespace-pre-wrap"><%= memo.content %></p>
           </div>
-          <p class="text-gray-700 whitespace-pre-wrap"><%= memo.body %></p>
+        <% end %>
+      <% else %>
+        <div class="text-center text-gray-500 py-10">
+          <p>この日のメモはありません。</p>
         </div>
       <% end %>
-    <% else %>
-      <div class="text-center text-gray-500">
-        <p>この日のメモはありません。</p>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="text-center mt-8">
-    <%= link_to 'カレンダーに戻る', memos_calendar_path, class: "inline-block px-6 py-2 border rounded-full font-medium text-white bg-purple-600 hover:bg-purple-700 transition duration-300" %>
+    </div>
+    
+    <div class="text-center mt-8">
+      <%= link_to 'カレンダーに戻る', memos_calendar_path, class: 'button-back' %>
+    </div>
   </div>
 </div>
