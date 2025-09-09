@@ -13,11 +13,13 @@
     <div class="simple-calendar">
       <%= month_calendar(date: @date, events: @memos, header: false, number_of_days: 35) do |date, memos| %>
         <div class="calendar-day <%= "wday-#{date.wday}" %> <%= 'has-memo' if memos.any? %>">
-          <div class="day-number"><%= date.day %></div>
-          <% if memos.any? %>
-            <div class="memo-count">
-              <%= link_to memos.count, memos_on_date_path(date: date) %>件
-            </div>
+          <%= link_to memos_on_date_path(date: date) do %>
+            <div class="day-number"><%= date.day %></div>
+            <% if memos.any? %>
+              <div class="memo-count">
+                <%= memos.count %>件
+              </div>
+            <% end %>
           <% end %>
         </div>
       <% end %>
