@@ -639,3 +639,8 @@ body {
 .wday-0 { /* 日曜日のクラス */
   background-color: #ffe0e0;
 }
+
+/* カレンダーのリンクのアンダーラインを削除 */
+.simple-calendar a {
+  text-decoration: none;
+}
