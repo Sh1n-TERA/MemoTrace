@@ -64,6 +64,10 @@
   font-size: 0.9rem;
 }
 
+/* ヘッダーのアプリ名のアンダーラインを削除 */
+.app-name a {
+  text-decoration: none;
+}
 
 /* トップページ用スタイル */
 body {
